@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%=locals.title %> </title>
+    <%- include('./partials/links.ejs') %>
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <% if (locals.error) { %>
+    <div id="errorAlert" class="container mt-4">
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+    </div>
+    <% } %>
+    <div class="container mt-5 registration-form">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card border-0 shadow-lg rounded-lg overflow-hidden">
+                    <div class="card-header bg-success text-white text-center py-3">
+                        <h2 class="mb-0">Login</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/login" method="post">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Enter email</label>
+                                <input type="text" class="form-control form-control-lg" id="email" name="Gmail" placeholder="Enter your email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" name="Password" placeholder="Enter your password">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Login</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center py-3 bg-light d-flex flex-column">
+                        <small>Don't have an account? <a href="/register" class="text-success">Sign Up</a></small>
+                        <small>go to Home? <a href="/" class="text-success">Home</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% if (locals.error) { %>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Find the error alert element
+            var errorAlert = document.getElementById("errorAlert");
+            if (errorAlert) {
+                // Set a timeout to start the fade-out animation after 4 seconds
+                setTimeout(function () {
+                    errorAlert.classList.add("fade-out");
+                }, 4000);
+                // Set a timeout to remove the error alert from the DOM after 5 seconds
+                setTimeout(function () {
+                    errorAlert.remove();
+                }, 5000);
+            }
+        });
+    </script>
+    <% } %>
+</body>
+</html>

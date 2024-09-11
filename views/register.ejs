@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><% title %></title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <%- include('./partials/links.ejs') %>
+
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <!-- Navbar content here -->
+    <div class="container mt-5 registration-form">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card border-0 shadow-lg rounded-lg overflow-hidden">
+                    <div class="card-header bg-primary text-white text-center py-3">
+                        <h2 class="mb-0">Register</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/register" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control form-control-lg" id="username"
+                                    name="FullName" placeholder="Enter your username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control form-control-lg" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Enter your email" name="email">
+                                <div id="emailHelp" class="form-text">We'll never share your email with
+                                    anyone
+                                    else.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control form-control-lg"
+                                    id="exampleInputPassword1" name="password"
+                                    placeholder="Enter your password">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Register</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center py-3 bg-light">
+                        <small>Already have an account? <a href="/login" class="text-primary">Login</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

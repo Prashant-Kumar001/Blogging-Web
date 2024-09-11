@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+header h1 {
+    margin: 0;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 10px;
+}
+main {
+    padding: 20px;
+}
+.activity-summary {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+.activity-summary h2 {
+    margin-top: 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f4f4f4;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+li {
+    padding: 5px 0;
+}
+.button-group {
+    margin-top: 20px;
+    text-align: center;
+}
+/* .btn {
+    display: inline-block;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+} */
+.back-btn {
+    background-color: #007bff;
+    outline: none;
+    border: none;
+}
+.back-btn:hover {
+    background-color: #0056b3;
+}
+#two-btn {
+    color: white;
+    background-color: #28a745;
+}
+#two-btn:hover {
+    background-color: #218838;
+}
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

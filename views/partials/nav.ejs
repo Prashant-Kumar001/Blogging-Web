@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container mx-auto">
+        <a class="navbar-brand fs-3 text-primary fw-bold" href="#">Blogify</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <form id="search-form" class="d-flex ms-auto me-3" role="search" action="/blog/result" method="GET">
+                <div class="input-group">
+                    <input class="form-control rounded-pill border-0 shadow-sm" type="search" placeholder="Search" aria-label="Search" name="query">
+                    <button class="btn btn-primary rounded-pill text-white" type="submit">Search</button>
+                </div>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <% if (locals.name) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog">Add blog</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <%= locals.name %>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <% if (locals.role === 'admin') { %>
+                                <li><a class="dropdown-item" href="/admin">Admin</a></li>
+                            <% } %>
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            <li><a class="dropdown-item" href="/login">login</a></li>
+                            <li><a class="dropdown-item" href="/register">registration</a></li>
+                        </ul>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Guest
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">In Guest mode</a></li>
+                            <li><a class="dropdown-item" href="/register">Register</a></li>
+                            <li><a class="dropdown-item" href="/login">Login</a></li>
+                        </ul>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Activity</title>
+    <link rel="stylesheet" href="/css/activity.css">
+    <%- include('./partials/links.ejs') %>
+        <style>
+            *{
+                margin: 0;padding: 0;box-sizing: border-box;
+            }
+            body {
+                background-color: #f8f9fa; font-family: 'poppins', sans-serif;
+            }
+
+            .activity-summary {
+                margin: 20px;
+            }
+
+            .btn-group {
+                display: flex;
+                justify-content: space-between;
+                margin: 20px;
+            }
+
+            .btn {
+                margin: 5px;
+            }
+
+            header h1 {
+                text-align: center;
+                margin: 20px 0;
+            }
+      .text-muted {
+        font-size: 13px;
+        color: #AAA;
+      }
+        </style>
+</head>
+
+<body>
+    <main class="container">
+        <section class="activity-summary">
+            <h2>Activity Summary</h2>
+            <% if (locals.userPosts) { %>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h3>
+                            <%= userPosts.title %>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Views:</strong>
+                            <%= userPosts.Views %>
+                        </p>
+                        <p><strong>Likes:</strong>
+                            <%= userPosts.likes %>
+                        </p>
+                        <h4>Comments:</h4>
+                        <% if (userPosts.PostComments && userPosts.PostComments.length > 0) { %>
+                            <ul class="list-group">
+                                <% userPosts.PostComments.forEach(comment => { %>
+                                    <li class="list-group-item">
+                                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start">
+                                            <div class="mb-2 mb-md-0">
+                                                <strong><%= comment.userName %>:</strong>
+                                                <p class="mb-1"><%= comment.comments %></p>
+                                            </div>
+                                            <small class="text-muted">
+                                                <%= new Date(comment.createdAt).toLocaleString() %>
+                                            </small>
+                                        </div>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        <% } else { %>
+                            <p class="text-center">No comments</p>
+                        <% } %>
+                        
+                    </div>
+                </div>
+                <% } else { %>
+                    <div class="alert alert-info">No post available</div>
+                    <% } %>
+        </section>
+        <div class="btn-group">
+            <a href="/profile/dashboard" class="btn btn-primary back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+            <a href="/" class="btn btn-secondary"><i class="fas fa-home"></i> Home</a>
+        </div>
+    </main>
+</body>
+
+</html>

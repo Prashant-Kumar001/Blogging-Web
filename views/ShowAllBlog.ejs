@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> <%= locals.title %> </title>
+    <%- include('./partials/links.ejs') %>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <style>
+        /* Flexbox styles for cards to ensure consistent height */
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .btn-primary {
+            margin-top: auto; /* Ensure the button is at the bottom */
+        }
+        .card-img-top {
+            max-height: 200px;
+            object-fit: cover;
+        }
+        .card-footer {
+            background-color: #f8f9fa;
+        }
+        .card-meta {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .no-blogs {
+            text-align: center;
+            font-size: 1.2em;
+            color: #6c757d;
+        }
+        footer {
+            background-color: #343a40;
+            color: #fff;
+        }
+        footer a {
+            color: #17a2b8;
+        }
+        footer a:hover {
+            color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="wrapper d-flex flex-column min-vh-100">
+        <div class="container mt-5 content flex-grow-1">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="mb-4 text-center"><%= name %> Blogs</h1>
+                    <div class="row">
+                        <% if (locals.blogs && locals.blogs.length > 0) { %>
+                            <% blogs.forEach(blog => { %>
+                                <div class="col-md-6 mb-4 d-flex">
+                                    <div class="card border-0 shadow-sm rounded-lg flex-fill">
+                                        <% if (blog.image) { %>
+                                            <img src="<%= blog.image %>" class="card-img-top" alt="image">
+                                        <% } %>
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title"><%= blog.title %></h5>
+                                            <p class="card-text"><%= blog.content.substring(0, 150) %>...</p>
+                                            <p class="card-meta">
+                                                <small>
+                                                    
+                                                    <% if (blog.category === 'Custom') { %>
+                                                        <span>Category: <%= blog.customCategory %></span>
+                                                    <% } else { %>
+                                                        <span>Category: <%= blog.category %></span>
+                                                    <% } %>
+                                                     | By: <%= blog.author %> | <%= new Date(blog.createdAt).toLocaleDateString() %> | Visibility: <%= blog.visibility %></small>
+                                            </p>
+                                            <a href="/blog/allBlogs/<%= blog._id %>" class="btn btn-primary mt-auto">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } else { %> 
+                            <div class="no-blogs">
+                                <p>No blogs available at the moment.</p>
+                            </div>
+                         <% } %> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-dark text-white text-center py-3 mt-5">
+            <p class="mb-0">&copy; 2024 Your Company. All rights reserved.</p>
+            <p class="social-icons">
+                Follow us on
+                <a href="#" class="text-primary mx-1"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-primary mx-1"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-primary mx-1"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-primary mx-1"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="text-primary mx-1"><i class="fab fa-youtube"></i></a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

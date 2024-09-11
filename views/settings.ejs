@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <%- include('./partials/links.ejs') %>
+    <style>
+        .container {
+            max-width: 800px;
+            margin-top: 30px;
+        }
+        .settings-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            margin-top: 10px;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Settings</h1>
+
+        <!-- Profile Settings -->
+        <div class="settings-section">
+            <h3>Profile Settings</h3>
+            <form action="/settings/profile" method="POST">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName" value="<%= user.FullName %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+                </div>
+                <button type="submit" class="btn btn-custom">Save Changes</button>
+            </form>
+        </div>
+
+        <!-- Password Settings -->
+        <div class="settings-section">
+            <h3>Change Password</h3>
+            <form action="/settings/password" method="POST">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-custom">Update Password</button>
+            </form>
+        </div>
+
+        <!-- Other Settings -->
+        <div class="settings-section">
+            <h3>Other Settings</h3>
+            <!-- Add more settings here -->
+            <form action="/settings/other" method="POST">
+                <!-- Add other settings fields -->
+                <button type="submit" class="btn btn-custom">Save Settings</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

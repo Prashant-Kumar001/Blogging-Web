@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Activity</title>
+  <%- include('./partials/links.ejs') %>
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: 'poppins', sans-serif;
+    }
+    .container {
+      max-width: 1200px;
+    }
+    .activity-section {
+      margin-top: 40px;
+    }
+    .activity-card {
+      margin-bottom: 30px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      height: 400px; /* Fixed card height */
+    }
+    .activity-card img {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      width: 100%;
+      height: 200px; /* Fixed image height */
+      object-fit: cover; /* Ensures image covers the area without stretching */
+    }
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15px;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    .card-text {
+      color: #555;
+    }
+    .section-header {
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+    .activity-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .activity-details div {
+      flex: 1;
+      text-align: center;
+    }
+    .btn-custom {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      text-align: center;
+      font-size: 0.999rem;
+      cursor: pointer;
+    }
+    .btn-custom:hover {
+      background-color: #0056b3;
+    }
+    .dashboard {
+            margin-top: 30px;
+        }
+
+        .dashboard-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-card .btn {
+            margin-top: 10px;
+        }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="my-4">User All posts</h1>
+
+    <!-- Activity Section -->
+    <div class="activity-section">
+      <div class="section-header">Activity</div>
+      <div class="row">
+        <% if (posts.length > 0) { %>
+          <% posts.forEach(post => { %>
+            <div class="col-md-4">
+              <div class="card activity-card">
+                <img src="<%= post.image || 'https://via.placeholder.com/400x200' %>" alt="Post Image">
+                <div class="card-body">
+                  <h5 class="card-title"><%= post.title %></h5>
+                  <div class="activity-details">
+                    <div>
+                      <h6 class="card-subtitle mb-2 text-muted">Likes</h6>
+                      <p class="card-text"><%= post.likes %></p>
+                    </div>
+                    <div>
+                      <h6 class="card-subtitle mb-2 text-muted">Views</h6>
+                      <p class="card-text"><%= post.Views %></p>
+                    </div>
+                    <div>
+                      <h6 class="card-subtitle mb-2 text-muted">Visibility</h6>
+                      <p class="card-text"><%= post.visibility %></p>
+                    </div>
+                  </div>
+                  <a href="/profile/dashBoard/activity/<%= post._id %>"><button class="btn-custom">check <i class="fa-solid fa-book "></i></button></a>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p>No post to display.</p>
+        <% } %>
+      </div>
+    </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="dashboard-card">
+                <h4><i class="fas fa-chart-line"></i> Recent Activity</h4>
+                <p>View your latest activities and interactions on your posts.</p>
+                <a href="/profile/dashBoard/Data" class="btn btn-primary">Activity</a>
+                <a href="/profile" class="btn btn-secondary">back</a>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

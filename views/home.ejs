@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> <%= locals.title %> </title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <%- include('./partials/links.ejs') %>
+       
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <main class="container">
+        <section class="featured-posts">
+            <h2>Latest Blog Posts</h2>
+            <div class="posts-grid">
+                <% if (locals.allData && locals.allData.length > 0) { %>
+                    <% locals.allData.forEach(function(post) { %>
+                        <div class="custom-post-card">
+                            <img src="<%= post.image %>" alt="<%= post.title %>" class="post-image" />
+                            <div class="custom-post-content">
+                                <h3><%= post.title %></h3>
+                                <div class="post-meta">
+                                    <span>By <%= post.author %></span>
+
+                                    <% if (post.category === 'Custom') { %>
+                                        <span>Category: <%= post.customCategory %></span>
+                                    <% } else { %>
+                                        <span>Category: <%= post.category %></span>
+                                    <% } %>
+                                    
+
+
+                                    <span><%= new Date(post.createdAt).toLocaleDateString() %></span>
+                                </div>
+                                <p>
+                                    <%= post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content %>
+                                </p>
+                                <a href="/blog/<%= post.id %>" class="custom-btn">Read Full Post</a>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No blog posts available.</p>
+                <% } %>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2024 Your Company. All rights reserved.</p>
+        <p class="social-icons">
+            Follow us on
+            <a href="#" class="text-primary mx-1"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-youtube"></i></a>
+        </p>
+    </footer>
+</body>
+
+</html>

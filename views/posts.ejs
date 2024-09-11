@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= blog.title %> - Your Blog
+    </title>
+    <%- include('./partials/links.ejs') %>
+        <link rel="stylesheet" href="/css/navbar.css" />
+        <style>
+            .card {
+                width: 100%;
+            }
+
+            .card-text {
+                line-height: 1.56;
+                word-spacing: 2px;
+                text-align: justify;
+                /* background-image: linear-gradient(to right top,  #007bff); */
+            }
+
+            .card-text::selection {
+                background-color: rgb(144, 238, 144, 0.5);
+            }
+
+            .card-img-top {
+                border-radius: 0.5rem;
+                max-height: 400px;
+                object-fit: cover;
+            }
+
+            .card-body {
+                position: relative;
+            }
+
+            .comment-form {
+                border-top: 1px solid #eaeaea;
+                padding-top: 1.5rem;
+                background-color: #f8f9fa;
+                border-radius: 0.5rem;
+            }
+
+            .comment-form textarea {
+                resize: none;
+            }
+
+            .comment-item {
+                border-bottom: 1px solid #eaeaea;
+                padding-bottom: 1rem;
+            }
+
+            .comment-item:last-child {
+                border-bottom: none;
+            }
+
+            .social-icons a {
+                color: #ffffff;
+                margin: 0 0.5rem;
+            }
+
+            .social-icons i {
+                font-size: 1.5rem;
+            }
+
+            .blog-meta {
+                font-size: 0.9rem;
+                color: #6c757d;
+            }
+
+            .btn-primary-custom {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 0.5rem;
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+                margin-top: 10px;
+            }
+
+            .btn-primary-custom:hover {
+                background-color: #eaeaea;
+                color: black;
+            }
+
+            .table-of-contents ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .table-of-contents li {
+                margin-bottom: 0.5rem;
+            }
+
+            .blog-stats span {
+                margin-right: 1rem;
+            }
+
+            .author-recent-posts ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .author-recent-posts li {
+                margin-bottom: 0.5rem;
+            }
+
+            .carousel-inner img {
+                border-radius: 0.5rem;
+            }
+
+            .carousel-inner img {
+                height: 350px;
+                /* Set the desired height */
+                width: 100%;
+                /* Ensure the width is 100% of the parent container */
+                object-fit: cover;
+                /* Ensures the image covers the container and is cropped if necessary */
+            }
+
+            .text-red {
+                color: red;
+            }
+
+            .text-black {
+                color: rgb(0, 0, 0);
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="card border-0 shadow-lg rounded-lg mb-4">
+                        <% if (blog.image) { %>
+                            <img src="<%= blog.image %>" class="card-img-top" alt="Blog Image" />
+                            <% } %>
+                                <div class="card-body p-4">
+                                    <h1 class="card-title mb-3">
+                                        <%= blog.title %>
+                                    </h1 style color>
+                                    <p class="card-text">
+                                        <%= blog.content %>
+                                    </p>
+
+                                    <!-- Blog Stats -->
+                                    <div class="blog-stats mb-4">
+                                        <span><i class="fas fa-eye"></i> Views: <%= blog.Views %></span>
+                                        <span class="likeBy">
+                                            <i class="fas fa-heart <%= blog.likedBy.includes(user) ? 'text-red' : 'text-black' %>"
+                                                id="like-button"></i>
+                                            Likes:
+                                            <span class="count">
+                                                <%= blog.likedBy.length %>
+                                            </span>
+                                        </span>
+
+                                        </span>
+                                        <!-- <span><i class="fas fa-share-alt"></i> Shares: <%= blog.shares %></span> -->
+                                    </div>
+
+                                    <!-- Blog Meta -->
+                                    <div class="blog-meta mb-3">
+                                        <p class="mb-1">
+                                            Category: <%= blog.category==='Custom' ? blog.customCategory :
+                                                blog.category%>
+                                        </p>
+                                        <p class="mb-1">
+                                            Written by <strong>
+                                                <%= author %>
+                                            </strong> on <%= new Date(blog.createdAt).toLocaleDateString() %>
+                                        </p>
+                                    </div>
+
+                                    <% if (locals.email) { %>
+                                        <p class="card-text">
+                                            <small class="text-muted">Contact us: <%= email %></small>
+                                        </p>
+                                        <% } %>
+
+                                            <a href="/" class="btn btn-secondary mt-4">Back to home</a>
+                                </div>
+                    </div>
+                    <!-- Related Posts Carousel -->
+
+                    <% if (relatedPosts.length) { %>
+                        <div id="relatedPostsCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <h4>
+                                    Related Posts <%= blog.category==='Custom' ? blog.customCategory : blog.category %>
+                                </h4>
+                                <% relatedPosts.forEach((post, index)=> { %>
+                                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                        <a href="/posts/<%= post._id %>">
+                                            <img src="<%= post.image %>" class="d-block w-100"
+                                                alt="<%= post.title %>" />
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <h5>
+                                                    <%= post.title %>
+                                                </h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#relatedPostsCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#relatedPostsCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <% } %>
+
+                            <!-- Author's Recent Posts -->
+                            <% if (authorPosts.length) { %>
+                                <div class="author-recent-posts mt-4">
+                                    <h4>More Posts by <%= author %>
+                                    </h4>
+                                    <ul>
+                                        <% authorPosts.forEach(post=> { %>
+                                            <li><a href="/posts/<%= post._id %>">
+                                                    <%= post.title %>
+                                                </a></li>
+                                            <% }) %>
+                                    </ul>
+                                </div>
+                                <% } %>
+
+                                    <!-- Comment Section -->
+                                    <div class="comment-section">
+                                        <% if (locals.name) { %>
+                                            <div class="comment-form mb-4 p-4">
+                                                <h4 class="font-weight-bold mb-3">Add a Comment</h4>
+                                                <form action="/blog/comment/<%= blog._id %>" method="post">
+                                                    <div class="form-group">
+                                                        <textarea id="content" name="comments" class="form-control"
+                                                            rows="5" placeholder="Write your comment here..."
+                                                            required></textarea>
+                                                    </div>
+                                                    <button type="submit" class="btn-primary-custom">
+                                                        Submit Comment
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <% } %>
+
+                                                <!-- Comments Pagination -->
+                                                <% if (comment.length) { %>
+                                                    <h4 class="mb-4">Comments (<%= comment.length %>)</h4>
+                                                    <div class="list-group">
+                                                        <% comment.forEach(element=> { %>
+                                                            <div class="list-group-item comment-item">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb-1">
+                                                                        <%= element.userName %>
+                                                                    </h5>
+                                                                    <small class="text-muted">
+                                                                        <%= new Date(element.createdAt).toLocaleString()
+                                                                            %>
+                                                                    </small>
+                                                                </div>
+                                                                <p class="mb-1">
+                                                                    <%= element.comments %>
+                                                                </p>
+                                                            </div>
+                                                            <% }) %>
+                                                    </div>
+                                                    <% } %>
+                                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-dark text-white text-center py-3 mt-5">
+            <p class="mb-0">&copy; 2024 Your Company. All rights reserved.</p>
+            <p class="social-icons">
+                Follow us on
+                <a href="#" class="text-primary mx-1"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-primary mx-1"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-primary mx-1"><i class="fab fa-instagram"></i></a>
+            </p>
+        </footer>
+        <script>
+            window.addEventListener('load', function () {
+                document.querySelector('#like-button').classList.remove('text-black');
+            });
+            let likeBtn = document.getElementById('like-button')
+            likeBtn.addEventListener('click', async function () {
+                const blogId = '<%= blog._id %>';
+                const response = await fetch(`/blog/${blogId}/like`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.querySelector('.count').innerText = `${data.likes}`
+                    likeBtn.style.color = `${data.color}`
+                } else {
+                    alert(JSON.stringify(data.error).replace(/^"|"$/g, ''));
+                }
+            });
+        </script>
+</body>
+
+</html>

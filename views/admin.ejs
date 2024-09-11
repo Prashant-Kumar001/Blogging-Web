@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('./partials/links.ejs') %>
+    <link rel="stylesheet" href="/css/navbar.css">
+
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 mb-4">
+                <div class="list-group shadow-sm rounded">
+                    <a href="#" class="list-group-item list-group-item-action active bg-primary text-white" aria-current="true">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-users"></i> Manage Users
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-file-alt"></i> Manage Posts
+                    </a>
+                    <a href="/admin/settings" class="list-group-item list-group-item-action">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="card border-0 shadow-lg rounded-lg">
+                    <div class="card-header bg-gradient-primary text-white text-center py-4">
+                        <h2 class="mb-0">Admin Dashboard</h2>
+                    </div>
+                    <div class="card-body p-5">
+                        <h3 class="font-weight-light">Welcome, <%= name %>!</h3>
+                        <p class="lead">Here you can manage your application's content and settings.</p>
+
+                        <!-- User Details Section -->
+                        <% if (locals.users) { %>
+                            <% locals.users %>
+                            <div class="mt-5">
+                                <h4 class="font-weight-bold">User Details</h4>
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-striped table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% users.forEach((user, index) => { %>
+                                                <tr>
+                                                    <td><%= index + 1 %></td>
+                                                    <td><%= user.FullName %></td>
+                                                    <td><%= user.email %></td>
+                                                    <td><%= user.role %></td>
+                                                    <td>
+                                                        <a href="/admin/edit/<%= user.id %>" class="btn btn-warning btn-sm">
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </a>
+                                                        <a href="/admin/delete/<%= user.id %>" class="btn btn-danger btn-sm">
+                                                            <i class="fas fa-trash-alt"></i> Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div class="alert alert-info mt-4" role="alert">
+                                No users found.
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="card-footer text-center py-4 bg-light">
+                        <small>Don't have an account? <a href="/register" class="text-primary font-weight-bold">Sign Up</a></small>
+                        <small class="d-block"><a href="/" class="text-primary font-weight-bold">Home</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2024 Your Company. All rights reserved.</p>
+        <p class="social-icons">
+            Follow us on
+            <a href="#" class="text-primary mx-1"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-youtube"></i></a>
+        </p>
+    </footer>
+</body>
+</html>

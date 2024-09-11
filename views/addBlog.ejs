@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%= title %> </title>
+    <%- include('./partials/links.ejs') %>
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg rounded-lg">
+                    <div class="card-header bg-dark text-white text-center py-4">
+                        <h2 class="mb-0">Add New Blog</h2>
+                    </div>
+                    <div class="card-body p-5">
+                        <form action="/blog/addBlog" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="title" class="font-weight-bold mb-3">Blog Title</label>
+                                <input type="text" id="title" name="title" class="form-control" placeholder="Enter blog title" required>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for="content" class="font-weight-bold mb-3">Blog Content</label>
+                                <textarea id="content" name="content" class="form-control" rows="10" placeholder="Write your blog content here..." required></textarea>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for="category" class="font-weight-bold mb-3">Category</label>
+                                <select id="category" name="category" class="form-control" onchange="toggleCustomCategory(this)" required>
+                                    <option value="" disabled selected>Select category</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Lifestyle">Lifestyle</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Travel">Travel</option>
+                                    <option value="Custom">Custom</option> <!-- Option for custom category -->
+                                </select>
+                            </div>
+                            <div class="form-group mt-4" id="customCategoryDiv" style="display: none;">
+                                <label for="customCategory" class="font-weight-bold mb-3">Custom Category</label>
+                                <input type="text" id="customCategory" name="customCategory" class="form-control" placeholder="Enter custom category" />
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for="tags" class="font-weight-bold mb-3">Tags (space-separated)</label>
+                                <input type="text" id="tags" name="tags" class="form-control" placeholder="Enter tags for your blog" />
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for="visibility" class="font-weight-bold mb-3">Visibility</label>
+                                <select id="visibility" name="visibility" class="form-control" required>
+                                    <option value="public" selected>Public</option>
+                                    <option value="private">Private</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for="image" class="font-weight-bold mb-2">Blog Image</label>
+                                <div class="custom-file">
+                                    <input type="file" id="image" name="image" class="custom-file-input">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                </div>
+                            </div>
+                            <div class="text-center mt-5 last-box">
+                                <button type="submit" class="btn btn-primary btn-lg">Add Blog</button>
+                                <a href="/blog/allBlogs" class="btn btn-secondary btn-lg ml-2">View All Blogs</a>
+                                <a href="/" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2024 Your Company. All rights reserved.</p>
+        <p class="social-icons">
+            Follow us on
+            <a href="#" class="text-primary mx-1"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-primary mx-1"><i class="fab fa-youtube"></i></a>
+        </p>
+    </footer>
+    <!-- Optional JavaScript -->
+    <script>
+        function toggleCustomCategory(select) {
+            const customCategoryDiv = document.getElementById('customCategoryDiv');
+            if (select.value === 'Custom') {
+                customCategoryDiv.style.display = 'block';
+            } else {
+                customCategoryDiv.style.display = 'none';
+            }
+        }
+
+        // JavaScript to update the file input label with the selected file name
+        document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+            var fileName = document.getElementById("image").files[0].name;
+            var nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+    </script>
+</body>
+</html>

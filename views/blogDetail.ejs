@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('./partials/links.ejs') %>
+    <link rel="stylesheet" href="/css/navbar.css">
+
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg rounded-lg">
+                    <% if (blog.image) { %>
+                        <img src="<%= blog.image %>" class="card-img-top" alt="<%= blog.title %>">
+                    <% } %>
+                    <div class="card-body p-5">
+                        <h2 class="card-title"><%= blog.title %></h2>
+                        <p class="card-text"><%= blog.content %></p>
+                        <p class="card-text"><small class="text-muted">
+                            <% if (blog.category === 'Custom') { %>
+                                <span>Category: <%= blog.customCategory %></span>
+                            <% } else { %>
+                                <span>Category: <%= blog.category %></span>
+                            <% } %> </small></p>
+                        <p class="card-text"><small class="text-muted">written by: <%= name %></small></p>
+                        <a href="/blog" class="btn btn-secondary mt-4">Back to Blogs</a>
+                        <a href="/" class="btn btn-secondary mt-4">Back to home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2024 Your Company. All rights reserved.</p>
+        <p>Follow us on 
+            <a href="#" class="text-primary mx-1"><i class="fab fa-facebook-f"></i></a> 
+            <a href="#" class="text-primary mx-1"><i class="fab fa-twitter"></i></a> 
+            <a href="#" class="text-primary mx-1"><i class="fab fa-instagram"></i></a>.
+        </p>
+    </footer>
+</body>
+</html>

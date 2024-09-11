@@ -1,0 +1,56 @@
+/* Navbar styling */
+*{
+    font-family: 'poppins', sans-serif;
+}
+html, body {
+    overflow-x: hidden;
+}
+
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+.navbar-nav .nav-link.active {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.navbar-nav .dropdown-menu {
+    border-radius: 0.5rem;
+}
+
+.navbar-nav .dropdown-item {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: #007bff;
+    /* background-color: #212529; */
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    text-decoration: underline;
+    /* text-decoration-skip-ink: none; */
+
+}
+.input-group {
+    margin-top: 10px;
+    gap: 10px;
+}
+
+/* css for add-blog */
+.last-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 45vw;
+    margin: auto;
+    margin-top: 10px;
+}

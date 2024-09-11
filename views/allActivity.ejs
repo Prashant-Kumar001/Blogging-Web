@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <%- include('./partials/links.ejs') %>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'poppins', sans-serif;
+            }
+
+            .profile-header img {
+                border-radius: 50%;
+                width: 150px;
+                height: 150px;
+            }
+
+            .header-buttons {
+                margin-bottom: 20px;
+            }
+
+            .section {
+                margin-bottom: 30px;
+            }
+
+            .tags-container {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .post-item {
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+                background-color: #f9f9f9;
+            }
+
+            .post-item h4 {
+                margin: 0;
+                font-size: 1.2em;
+            }
+
+            .tags {
+                margin-top: 10px;
+            }
+
+            .tag {
+                display: inline-block;
+                background-color: #e0e0e0;
+                border-radius: 3px;
+                padding: 5px 10px;
+                margin: 2px;
+                font-size: 0.9em;
+            }
+
+            .no-tags {
+                color: #888;
+                font-style: italic;
+            }
+
+            .list-group-item {
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+                margin-bottom: 10px;
+                background-color: #f9f9f9;
+            }
+
+            .list-group-item h5 {
+                margin-bottom: 5px;
+            }
+
+            .comments-section {
+                margin-top: 20px;
+            }
+
+            .comment-item {
+                border-bottom: 1px solid #ddd;
+                padding: 10px 0;
+            }
+
+            .comment-item:last-child {
+                border-bottom: none;
+            }
+
+            .comment-item p {
+                margin-bottom: 5px;
+            }
+
+           
+
+            .blog-link {
+                display: inline-block;
+                ;
+                color: #0056b3;
+                /* Change to your preferred color */
+                cursor: pointer;
+                transition: color 0.3s, text-decoration 0.3s;
+            }
+
+            .blog-link:hover {
+                color: #0056b3;
+                /* Change to a more vibrant color on hover */
+                text-decoration: underline;
+            }
+
+            .tags-part {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .btn-custom {
+                padding: 5px 10px;
+                border: none;
+                font-size: 18px;
+            }
+
+            .btn-custom:hover {
+                background-color: #eaeaea;
+                color: black;
+            }
+
+            .comment {
+                display: flex;
+                align-items: center;
+                text-align: center;
+                gap: 5px;
+            }
+            .comment-author {
+                font-weight: 600;
+            }
+            .date {
+                color: #AAAAAA;
+                font-size: 13px;
+            }
+        </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Profile Posts -->
+        <div class="section">
+            <h3><i class="fas fa-clipboard"></i> My Posts</h3>
+            <% if (posts && posts.length> 0) { %>
+                <div class="list-group">
+                    <% posts.forEach(post=> { %>
+                        <div class="list-group-item post-item">
+                            <div class="post-actions">
+                                <a href="/profile/dashBoard/Data/update/<%= post._id %>" class="btn btn-secondary btn-sm"><i
+                                        class="fas fa-edit"></i></a>
+                                <form action="/posts/delete/<%= post._id %>" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                            class="fas fa-trash"></i></button>
+                                </form>
+                                <a href="/profile/dashBoard/activity/<%= post._id %>" class="btn btn-info btn-sm"><i
+                                        class="fas fa-chart-line"></i> check</a>
+                            </div>
+                            <h5 class="mb-1">
+                                <%= post.title %>
+                            </h5>
+                            <p class="mb-1">
+                                <%= post.content.substring(0, 100) %>...
+                            </p>
+                            <div class="custom-btn">
+                                <a href="/blog/<%= post._id %>"><button type="button" class="btn btn-primary">Read
+                                        More</button></a>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <% } else { %>
+                    <p class="text-muted">No posts available.</p>
+                    <% } %>
+        </div>
+
+        <!-- Tags -->
+        <div class="section section-Tags">
+            <% if (posts && posts.length> 0) { %>
+                <h3><i class="fas fa-tags"></i> Posts with Titles and Tags</h3>
+                <div class="tags-container">
+                    <% posts.forEach(post=> { %>
+                        <div class="post-item tags-part">
+                            <h4>
+                                <%= post.title %>
+                            </h4>
+                            <% if (post.tags && post.tags.length> 0) { %>
+                                <div class="tags">
+                                    <% post.tags.forEach(tag=> { %>
+                                        <span class="tag">
+                                            <%= tag %>
+                                        </span>
+                                        <% }) %>
+                                </div>
+                                <% } else { %>
+                                    <p class="no-tags">No tags available</p>
+                                    <% } %>
+                        </div>
+                        <% }) %>
+                </div>
+                <% } else { %>
+                    <p>No posts available.</p>
+                    <a href="/blog" class="blog-link">
+                        <p class="blog-link">Create Your First Blog Post <i class="fa-solid fa-pen-nib"></i> </p>
+                    </a>
+                    <% } %>
+        </div>
+
+        <!-- Comments Section -->
+        <% if (comment && comment.length> 0) { %>
+            <div class="comments-section">
+                <h6><i class="fas fa-comments"></i> All Comments:</h6>
+                <% comment.forEach(comment=> { %>
+                    <div class="comment-item">
+                        <p class="comment">
+                            <span class="comment-author">
+                                <%= comment.userName %>:
+                            </span>
+                            <small class="date">
+                                <%= new Date(comment.createdAt).toLocaleString() %>
+                            </small>
+                        </p>
+                        <p>
+                            <%= comment.comments %>
+                        </p>
+                    </div>
+                    <% }) %>
+            </div>
+            <% } else { %>
+                <p class="text-muted">No comments available for your posts.</p>
+                <% } %>
+
+                    <a href="/profile/dashBoard">
+                        <button class="btn-custom"><i class="fas fa-arrow-left"></i> Back</button>
+                    </a>
+
+
+</body>
+
+</html>
